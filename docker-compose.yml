@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  stats:
+    build: .
+    command: sh ./entrypoint.sh
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/code
+    networks:
+      - innotter_default
+
+networks:
+  innotter_default:
+    external: true
