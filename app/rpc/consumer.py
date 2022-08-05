@@ -3,7 +3,7 @@ import json
 import aio_pika
 import aio_pika.abc
 
-from app.aws.dynamodb import add_stats_to_db
+from app.aws.dynamodb import add_innotter_data_to_db
 from app.config import settings
 
 
@@ -27,7 +27,8 @@ async def consume(loop):
             async for message in queue_iter:
                 async with message.process():
                     data = json.loads(message.body)
-                    await add_stats_to_db(id=data.get('id'), data=data)
+
+                    await add_innotter_data_to_db(id=data.get('id'), data=data)
 
                     if queue.name in message.body.decode():
                         break
