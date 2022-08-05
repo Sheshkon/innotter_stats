@@ -11,6 +11,20 @@ services:
     networks:
       - innotter_default
 
+  celery:
+    restart: always
+    build:
+      context: .
+    env_file:
+      - ./.env
+    command: sh ./run_celery.sh
+    volumes:
+      - .:/code
+    depends_on:
+      - stats
+    networks:
+      - innotter_default
+
 networks:
   innotter_default:
     external: true
